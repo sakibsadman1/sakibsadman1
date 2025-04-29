@@ -17,6 +17,24 @@ if (isset($_POST['login'])) {
     }
 }
 
+if (isset($_POST['logout'])) {
+    $_SESSION['loggedIn'] = false;
+    $loggedIn = false;
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+$projectFiles = [
+    'index.php' => 'index.php',
+    'login.php' => 'login.php',
+    'register.php' => 'register.php',
+    'dashboard.php' => 'dashboard.php',
+    'admin_page.php' => 'admin_page.php',
+    'profile_management.php' => 'profile_management.php',
+    'data_visualization.php' => 'data_visualization.php',
+    'group_info.php' => 'group_info.php'
+];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -196,6 +214,15 @@ if (isset($_POST['login'])) {
             text-decoration: underline;
         }
 
+        .section-header {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 18px;
+            font-weight: 500;
+            color: #555;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -288,27 +315,19 @@ if (isset($_POST['login'])) {
     <?php else: ?>
         <div class="container">
             <div class="nav">
-                <h1>Root Dashboard</h1>
+                <h1>Project Dashboard</h1>
             </div>
             
             <h2>Project Pages</h2>
+            
+            <!-- Display all files in the src directory -->
             <div class="links">
                 <?php
-                $phpFiles = glob('*.php');
-                foreach ($phpFiles as $file) {
-                    if ($file != basename($_SERVER['PHP_SELF'])) {
+                // Display all src files
+                foreach ($projectFiles as $path => $title) {
+                    if ($path != basename($_SERVER['PHP_SELF'])) {
                         echo '<div class="link-item">';
-                        echo '<a href="' . htmlspecialchars($file) . '">' . htmlspecialchars($file) . '</a>';
-                        echo '</div>';
-                    }
-                }
-                
-                $dirs = glob('*', GLOB_ONLYDIR);
-                foreach ($dirs as $dir) {
-                    $dirFiles = glob($dir . '/*.php');
-                    foreach ($dirFiles as $file) {
-                        echo '<div class="link-item">';
-                        echo '<a href="' . htmlspecialchars($file) . '">' . htmlspecialchars($file) . '</a>';
+                        echo '<a href="' . htmlspecialchars($path) . '" title="' . htmlspecialchars($title) . '">' . htmlspecialchars($title) . '</a>';
                         echo '</div>';
                     }
                 }
