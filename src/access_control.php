@@ -34,7 +34,4 @@ function requirePermission($permission) {
         die("Access denied: You do not have permission to view this page.");
     }
 }
-
-// Example: Restrict a page to only admins
-// requirePermission('manage_users');
-?>s
+?>

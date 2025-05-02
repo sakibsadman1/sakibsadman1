@@ -7,7 +7,6 @@ if (isset($_POST['guest_login'])) {
     $_SESSION['role_id'] = 3; // Assuming 3 is your guest role ID
 }
 
-// Regular authentication check
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
@@ -77,7 +76,6 @@ if ($role === 'Admin') {
     <title>User Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* General Styles */
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -389,6 +387,7 @@ if ($role === 'Admin') {
         <div class="nav">
             <a href="dashboard.php" class="active">Dashboard</a>
             <a href="profile_management.php">My Profile</a>
+            <a href="group_chat.php">Group Chat</a>
             <?php if ($role === 'Admin'): ?>
                 <a href="admin_page.php">Admin Panel</a>
             <?php endif; ?>
