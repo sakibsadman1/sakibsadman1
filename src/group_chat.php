@@ -1416,6 +1416,33 @@ if (isset($_GET['group_id'])) {
             color: #007bff;
         }
 
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.9);
+            border: 1px solid #28a745;
+            color: #fff;
+        }
+
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.9);
+            border: 1px solid #dc3545;
+            color: #fff;
+        }
+
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -1475,7 +1502,9 @@ if (isset($_GET['group_id'])) {
         </div>
 
         <?php if (!empty($success_message)): ?>
-            <div class="alert alert-success"><?php echo htmlspecialchars($success_message); ?></div>
+            <div class="alert alert-success" role="alert">
+                <?php echo htmlspecialchars($success_message); ?>
+            </div>
         <?php endif; ?>
 
         <?php if (!empty($error_message)): ?>
@@ -1816,6 +1845,7 @@ if (isset($_GET['group_id'])) {
             if (chatMessages) {
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }
+            autoHideAlerts();
         };
 
         function openInviteModal() {
@@ -2074,6 +2104,19 @@ if (isset($_GET['group_id'])) {
             document.body.appendChild(form);
             form.submit();
         }
+
+        function autoHideAlerts() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.opacity = '0';
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 300);
+                }, 5000);
+            });
+        }
     </script>
 </body>
+
 </html>
